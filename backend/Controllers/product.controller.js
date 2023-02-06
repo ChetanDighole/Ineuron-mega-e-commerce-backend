@@ -84,3 +84,49 @@ export const addProduct = asyncHandler(async (req, res) => {
 
 })
 
+/*********************
+ *  @GET_ALL_PRODUCT
+ *  @route https://localhost:5000/api/product
+ *  @description Controller used for all products
+ *  @description user and admin all can create the coupon
+ *  @return Product Object
+ * ******************/
+
+export const getAllProducts = asyncHandler(async (req , res) => {
+    const products = await Product.find({})
+
+    if(!products){
+        throw new CustomError('No products was found' , 404)
+    }
+
+    res.status(200).json({
+        success: true,
+        products
+    })
+
+})
+
+/*********************
+ *  @GET_PRODUCT_BY_ID
+ *  @route https://localhost:5000/api/product
+ *  @description Controller used for getting single product
+ *  @description user and admin all can create the coupon
+ *  @return Product Object
+ * ******************/
+
+export const getProduct = asyncHandler(async (req , res) => {
+
+    const {id: productId} = req.params
+
+    const product = await Product.findById(productId)
+
+    if(!product){
+        throw new CustomError('No product was found' , 404)
+    }
+
+    res.status(200).json({
+        success: true,
+        product
+    })
+
+})
