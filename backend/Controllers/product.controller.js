@@ -24,6 +24,8 @@ export const addProduct = asyncHandler(async (req, res) => {
     });
 
     form.parse(req, async function (err, fields, files) {
+        //fields/formidable.fields = form data
+        //files/formidable.files = images , videos
         try {
 
             if (err) {
@@ -39,10 +41,26 @@ export const addProduct = asyncHandler(async (req, res) => {
 
             //handling the file
             let imgArrayResp = Promise.all(
+                //object.keys will make array of images
                 Object.keys(files).map(async (fileKey , index) => {
+                    //filekeys are nothing but the element of array
                     const element = files[fileKey]
+
+                    /************
+                     // image details
+                     element = {
+                        filePath: ""
+                        fileExtention: ""
+                        .
+                        .
+                     }
+                     **************/
                     
+
+                     //to get all the data of a image not just name we use fs - file system of node js
+
                     const data = fs.readFileSync(element.filepath)
+                    //when user browse image the image path is also gets in
 
                     const upload = await s3FileUpload({
                         bucketName: config.S3_BUCKET_NAME,
@@ -59,6 +77,7 @@ export const addProduct = asyncHandler(async (req, res) => {
 
             let imgArray = await imgArrayResp;
 
+            // saving to database
             const product = await Product.create({
                 _id: productId,
                 photos: imgArray,
