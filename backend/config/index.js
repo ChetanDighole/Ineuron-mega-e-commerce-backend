@@ -18,7 +18,11 @@ const config = {
     S3_ACCESS_KEY: process.env.S3_ACCESS_KEY,
     S3_SECRETE_ACCESS_KEY: process.env.S3_SECRETE_ACCESS_KEY,
     S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
-    S3_REGION: process.env.S3_REGION
+    S3_REGION: process.env.S3_REGION,
+
+    Razorpay_Key_ID: process.env.Razorpay_Key_ID,
+    Razorpay_SECRET: process.env.Razorpay_SECRET,
+
 }
 
 export default config
